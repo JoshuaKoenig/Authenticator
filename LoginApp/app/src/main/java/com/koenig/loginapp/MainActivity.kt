@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
 
             // SEND BROADCAST TO CODE GENERATOR WITH SIX-DIGIT NUMBER
-            sendCodeBroadcast(sixDigitCode)
+            sendCodeBroadcastWithPermission(sixDigitCode)
 
             // START THE ENTER-CODE-ACTIVITY
             val intent = Intent(this, EnterCodeActivity::class.java)
@@ -83,6 +83,15 @@ class MainActivity : AppCompatActivity() {
             intent.action = action
             intent.putExtra("Code", sixDigitCode)
             sendBroadcast(intent)
+        }
+    }
+
+    private fun sendCodeBroadcastWithPermission(sixDigitCode: String)
+    {
+        Intent().also { intent ->
+            intent.action = action
+            intent.putExtra("Code", sixDigitCode)
+            sendBroadcast(intent, "com.koenig.loginapp.permission.receive")
         }
     }
 }
